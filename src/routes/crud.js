@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Financials = require("../models/financials");
+const auth = require("../middleware/authentication")
 
-router.post("/create", async (req, res) => {
+router.post("/create",auth, async (req, res) => {
   const companyFinancials = new Financials(req.body);
   try {
     await companyFinancials.save();
@@ -13,11 +14,10 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.get("/read", async (req, res) => {
+router.get("/read",auth, async (req, res) => {
   try {
     const query = req.query;
     const companies = await Financials.find(query);
-    console.log(companies.length);
     if (companies.length === 0) {
       res.status(404).send();
     }
@@ -28,7 +28,7 @@ router.get("/read", async (req, res) => {
   }
 });
 
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id",auth, async (req, res) => {
   const id = req.params.id;
   const updates = Object.keys(req.body);
   const allowed = ["Revenue_million_USD"];
@@ -52,10 +52,9 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id",auth,async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
     const company = await Financials.findById(id);
     if (company === null) {
       res.status(404).send();

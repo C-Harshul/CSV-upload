@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const CSVToJSON = require("csvtojson");
 const Financials = require("../models/financials");
+const auth = require('../middleware/authentication')
 const router = new express.Router();
 
 var files = [];
@@ -29,7 +30,7 @@ const upload = multer({
 
 router.post(
   "/upload",
-  upload.array("csvupload", 2),
+  upload.array("csvupload", 2),auth,
   async (req, res) => {
     try {
       for await (const file of files) {
