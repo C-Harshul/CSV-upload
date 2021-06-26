@@ -27,9 +27,12 @@ const upload = multer({
   },
 });
 
-router.post("/upload", upload.array("csvupload", 2), async (req, res) => {
-  try {
-    for await (const file of files) {
+router.post(
+  "/upload",
+  upload.array("csvupload", 2),
+  async (req, res) => {
+    try {
+      for await (const file of files) {
         console.log(file);
         await CSVToJSON()
           .fromFile(`/home/harshul/Dev/nodejs/csv-upload/CSVs/${file}`)
@@ -43,16 +46,18 @@ router.post("/upload", upload.array("csvupload", 2), async (req, res) => {
             }
           })
           .catch((err) => {
-            res.status(500).send()
+            res.status(500).send();
           });
       }
-  } catch(e) {
-      console.log(e)
-      res.status(500).send()
+    } catch (e) {
+      console.log(e);
+      res.status(500).send();
+    }
+    res.send({ "Upload status": "Done" });
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
   }
-  res.send({"Upload status": "Done"})
-},(error,req,res,next) => {
-    res.status(400).send({error:error.message})
-});
+);
 
 module.exports = router;
