@@ -19,6 +19,8 @@ router.post(
   auth,
   async (req, res) => {
     try {
+      if(files.length === 0)
+      res.status(400).send({"error" : "Attach CSV files"})
       for await (const file of files) {
         await CSVToJSON()
           .fromFile(`${csvDirectoryPath}/${file}`)

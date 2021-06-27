@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      unique:true, 
       required: true,
     },
 
@@ -68,7 +69,6 @@ userSchema.statics.findCredentials = async (name, password) => {
   if (!match) {
     throw new Error("Incorrect password");
   }
-
   return user;
 };
 
