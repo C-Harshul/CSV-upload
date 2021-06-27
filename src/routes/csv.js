@@ -1,36 +1,18 @@
+/*===============================
+Scan CSV file and push to mongodb
+=================================*/
+
 const express = require("express");
-const multer = require("multer");
 const path = require("path");
 const CSVToJSON = require("csvtojson");
 const Financials = require("../models/financials");
+const { upload, files } = require("../middleware/upload");
 const auth = require("../middleware/authentication");
 const router = new express.Router();
 
 const csvDirectoryPath = path.join(__dirname, "../../CSVs");
 
-var files = [];
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "CSVs");
-  },
-  filename: function (req, file, cb) {
-    files.push(file.originalname);
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  fileFilter(req, file, cb) {
-    if (!file.originalname.endsWith(".csv")) {
-      return cb(new Error("Please upload a CSV file"));
-    }
-
-    cb(undefined, true);
-  },
-});
-
+/*---------------------------------Call upload middleware to upload to file and then push to mongoDB---------------------------------*/
 router.post(
   "/upload",
   upload.array("csvupload", 2),

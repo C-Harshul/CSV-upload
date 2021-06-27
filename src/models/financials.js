@@ -1,3 +1,7 @@
+/*=========================
+ Comapany financials Schema
+===========================*/
+
 const mongoose = require("mongoose")
 
 const financialsSchema = mongoose.Schema({

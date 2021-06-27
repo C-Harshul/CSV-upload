@@ -1,8 +1,14 @@
+/*==================================
+User routes to authenticate requests
+====================================*/
+
 const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
 const auth = require('../middleware/authentication')
 
+
+/*---------------------------------Add new user---------------------------------*/
 router.post('/new',async (req,res) =>{
     const user = new User(req.body)
     try{
@@ -16,6 +22,7 @@ router.post('/new',async (req,res) =>{
 
 })
 
+/*---------------------------------Login to a session---------------------------------*/
 router.post('/login', async(req,res) =>{
     try {
         const loginCreds = req.body
@@ -35,7 +42,7 @@ router.post('/login', async(req,res) =>{
     }
 })
 
-//Logout user from all devices
+/*---------------------------------Logout from all sessions---------------------------------*/
 router.get("/logout", auth, async (req, res) => {
     try {
       req.user.tokens = [];

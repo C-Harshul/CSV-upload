@@ -1,6 +1,6 @@
-/*
+/*==============================
   User authentication middleware
-*/
+================================*/
 
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");

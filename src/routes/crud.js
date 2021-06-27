@@ -1,9 +1,15 @@
+/*=================================================
+ CRUD routes to perform on data added from CSV files 
+===================================================*/
+
 const express = require("express");
 const router = express.Router();
 const Financials = require("../models/financials");
-const auth = require("../middleware/authentication")
+const auth = require("../middleware/authentication");
 
-router.post("/create",auth, async (req, res) => {
+/*---------------------------------Route to add individual data---------------------------------*/
+
+router.post("/create", auth, async (req, res) => {
   const companyFinancials = new Financials(req.body);
   try {
     await companyFinancials.save();
@@ -14,7 +20,9 @@ router.post("/create",auth, async (req, res) => {
   }
 });
 
-router.get("/read",auth, async (req, res) => {
+/*---------------------------------Route to read data from DB---------------------------------*/
+
+router.get("/read", auth, async (req, res) => {
   try {
     const query = req.query;
     const companies = await Financials.find(query);
@@ -28,7 +36,9 @@ router.get("/read",auth, async (req, res) => {
   }
 });
 
-router.patch("/update/:id",auth, async (req, res) => {
+/*---------------------------------Route to update data on DB---------------------------------*/
+
+router.patch("/update/:id", auth, async (req, res) => {
   const id = req.params.id;
   const updates = Object.keys(req.body);
   const allowed = ["Revenue_million_USD"];
@@ -52,7 +62,9 @@ router.patch("/update/:id",auth, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id",auth,async (req, res) => {
+/*---------------------------------Route to delete data on DB---------------------------------*/
+
+router.delete("/delete/:id", auth, async (req, res) => {
   try {
     const id = req.params.id;
     const company = await Financials.findById(id);
