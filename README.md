@@ -1,5 +1,5 @@
 <h1 align="center"> CSV -upload  </h1>
-<h2> POSTMAN LINK TO TEST THE API </h2>
+<h2> POSTMAN COLLECTION TO TEST THE API </h2>
 
 -> https://www.getpostman.com/collections/4b5ef018695679d72a6b
 
