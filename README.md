@@ -3,6 +3,27 @@
 
 -> https://www.getpostman.com/collections/4b5ef018695679d72a6b
 
+<h2> Route endpoints </h2>
+<h4> Host URL -> https://csv-upload-crud.herokuapp.com </h4>
+
+- `{{url}}/user/new`        :  Post request to sign up new user.
+
+- `{{url}}/user/login`      :  Post request to login user into a session.
+
+- `{{url}}/user/logout`     :  Get request to logout user from all sessions. 
+
+- `{{url}}/csv/upload`      :  Post request to upload  1 or 2 CSV files to MongoDB Database.
+
+- `{{url}}/crud/create`     :  Post request to add company details to DB.
+
+- `{{url}}/crud/read`       : Get request to get company details.
+
+- `{{url}}/crud/update/:id` : Patch request to update comapny revenue.
+
+- `{{url}}/crud/delete/:id` : Delete request to delete company with its company ID
+
+
+
 <h2>Important dependencies used</h2>
 
 - <strong>Express</strong> : Used to create backend server and API.
