@@ -5,6 +5,7 @@
 
 <h2> Route endpoints </h2>
 <h4> Host URL -> https://csv-upload-crud.herokuapp.com </h4>
+<h4> Local URL -> localhost:3000 </h4>
 
 - `{{url}}/user/new`        :  Post request to sign up new user.
 
