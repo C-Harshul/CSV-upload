@@ -1,9 +1,12 @@
 const express = require("express");
 const multer = require("multer");
+const path = require("path");
 const CSVToJSON = require("csvtojson");
 const Financials = require("../models/financials");
-const auth = require('../middleware/authentication')
+const auth = require("../middleware/authentication");
 const router = new express.Router();
+
+const csvDirectoryPath = path.join(__dirname, "../../CSVs");
 
 var files = [];
 
@@ -30,13 +33,13 @@ const upload = multer({
 
 router.post(
   "/upload",
-  upload.array("csvupload", 2),auth,
+  upload.array("csvupload", 2),
+  auth,
   async (req, res) => {
     try {
       for await (const file of files) {
-        console.log(file);
         await CSVToJSON()
-          .fromFile(`/home/harshul/Dev/nodejs/csv-upload/CSVs/${file}`)
+          .fromFile(`${csvDirectoryPath}/${file}`)
           .then(async (results) => {
             for await (const company of results) {
               const companyFinancials = new Financials({
@@ -47,7 +50,7 @@ router.post(
             }
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
             res.status(500).send();
           });
       }
