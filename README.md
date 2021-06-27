@@ -46,3 +46,7 @@ The server should be online on port 3000
 - Go to the terminal and run `npm run test`
 
 The 2 test suites - CRUD and User should run 
+
+<h2> Deployement </h2>
+The server is deployed on heroku and the database is on MongoDB Atlas so that it can be accessed from anywhere 
+It can be tested from https://csv-upload-crud.herokuapp.com 
